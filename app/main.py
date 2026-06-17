@@ -39,9 +39,12 @@ def brute_force_password() -> None:
         results = pool.map(check_range, ranges)
 
     flat_results = sum(results, [])
-    print(f"Found {len(flat_results)} passwords: ")
-    for order, password in enumerate(flat_results, 1):
-        print(f"{order}. {password}")
+    if len(flat_results) == len(PASSWORDS_TO_BRUTE_FORCE):
+        print(f"Found {len(flat_results)} passwords: ")
+        for order, password in enumerate(flat_results, 1):
+            print(f"{order}. {password}")
+    else:
+        print(f"Passwords found {len(flat_results)}.")
 
 
 if __name__ == "__main__":
