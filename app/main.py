@@ -1,4 +1,5 @@
 import time
+import os
 from hashlib import sha256
 import multiprocessing
 
@@ -33,7 +34,7 @@ def check_range(limits: tuple) -> list:
 def brute_force_password() -> None:
     chunk = 10**6
     ranges = [(i, i + chunk) for i in range(0, 10**8, chunk)]
-    with multiprocessing.Pool(10) as pool:
+    with multiprocessing.Pool(os.cpu_count() - 1) as pool:
         results = pool.map(check_range, ranges)
 
     flat_results = sum(results, [])
