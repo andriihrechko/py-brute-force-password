@@ -34,7 +34,8 @@ def check_range(limits: tuple) -> list:
 def brute_force_password() -> None:
     chunk = 10**6
     ranges = [(i, i + chunk) for i in range(0, 10**8, chunk)]
-    with multiprocessing.Pool(os.cpu_count() - 1) as pool:
+    pool_size = max(1, (os.cpu_count() or 1) - 1)
+    with multiprocessing.Pool(pool_size) as pool:
         results = pool.map(check_range, ranges)
 
     flat_results = sum(results, [])
